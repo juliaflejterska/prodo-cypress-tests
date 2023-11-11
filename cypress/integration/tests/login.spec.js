@@ -1,19 +1,12 @@
 import LoginPage from "../pages/loginPage";
 const loginPage = new LoginPage();
+const loginData = require("../../fixtures/loginData.json");
 
 describe("Login tests", () => {
   beforeEach(() => {
     loginPage.visitLoginPage();
   });
 
-  Cypress.Commands.add("validateLoginAlert", (expectedText) => {
-    cy.wait(5000);
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).to.contains(expectedText);
-    });
-  });
-
-  const loginData = require("../../fixtures/loginData.json");
   const { validUser, invalidUser } = loginData;
 
   it("Successfully logs in user with valid data", () => {
@@ -24,14 +17,14 @@ describe("Login tests", () => {
 
   it("Fails to log in with a not registered email, proper alert should be displayed", () => {
     loginPage.login(invalidUser.email, invalidUser.password);
-    cy.validateLoginAlert(
+    cy.validateAlert(
       "Login failed: Please check your credentials and try again."
     );
   });
 
   it("Fails to log in with incorrect password, proper alert should be displayed", () => {
     loginPage.login(validUser.email, invalidUser.password);
-    cy.validateLoginAlert(
+    cy.validateAlert(
       "Login failed: Please check your credentials and try again."
     );
   });

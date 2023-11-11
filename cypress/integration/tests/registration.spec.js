@@ -1,12 +1,12 @@
 import RegistrationPage from "../pages/registrationPage";
 const registrationPage = new RegistrationPage();
+const registrationData = require("../../fixtures/registrationData.json");
 
 describe("Registration tests", () => {
   beforeEach(() => {
     registrationPage.visitRegistrationPage();
   });
 
-  const registrationData = require("../../fixtures/registrationData.json");
   const { validUser, invalidUser, invalidEmailUser, shortPasswordUser } =
     registrationData;
 
@@ -18,12 +18,9 @@ describe("Registration tests", () => {
 
   it("Fails to register with an already registered email, proper alert should be displayed", () => {
     registrationPage.register(invalidUser.email, invalidUser.password);
-    cy.wait(5000);
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).to.contains(
-        "Registration failed: An account with this email address already exists."
-      );
-    });
+    cy.validateAlert(
+      "Registration failed: An account with this email address already exists."
+    );
   });
 
   it("Fails to register with a blank email and password, proper error messages should be displayed", () => {
