@@ -5,6 +5,9 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    specPattern: "cypress/integration/*.js",
+    specPattern: "cypress/integration/tests/*.js",
+    env: {
+      baseURL: "https://prodo-tracker.netlify.app",
+    },
   },
 });
