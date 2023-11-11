@@ -4,3 +4,10 @@ Cypress.Commands.add("validateAlert", (expectedText) => {
     expect(alertText).to.contains(expectedText);
   });
 });
+
+Cypress.Commands.add("loginWithValidCredentials", () => {
+  cy.visit(Cypress.env("baseURL") + "/login");
+  cy.get('form input[name="email"]').type("test@test.com");
+  cy.get('form input[name="password"]').type("12345678");
+  cy.get('form button[type="submit"]').click();
+});

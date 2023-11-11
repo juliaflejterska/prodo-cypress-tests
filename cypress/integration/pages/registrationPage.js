@@ -1,9 +1,9 @@
 class RegistrationPage {
   constructor() {
-    this.needToRegisterButton = 'form button[type="button"].btn.btn-secondary';
-    this.emailInput = 'input[name="email"]';
-    this.passwordInput = 'input[name="password"]';
-    this.registerButton = 'form button[type="submit"].btn.btn-dark';
+    this.needToRegisterButton = 'form button[type="button"]';
+    this.emailInput = 'form input[name="email"]';
+    this.passwordInput = 'form input[name="password"]';
+    this.registerButton = 'form button[type="submit"]';
   }
 
   visitRegistrationPage() {

@@ -1,8 +1,8 @@
 class LoginPage {
   constructor() {
-    this.emailInput = 'input[name="email"]';
-    this.passwordInput = 'input[name="password"]';
-    this.loginButton = 'form button[type="submit"].btn.btn-dark';
+    this.emailInput = 'form input[name="email"]';
+    this.passwordInput = 'form input[name="password"]';
+    this.loginButton = 'form button[type="submit"]';
   }
 
   visitLoginPage() {
