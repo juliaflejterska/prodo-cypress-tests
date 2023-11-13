@@ -1,4 +1,4 @@
-class LoginPage {
+export default class LoginPage {
   constructor() {
     this.emailInput = 'form input[name="email"]';
     this.passwordInput = 'form input[name="password"]';
@@ -32,5 +32,3 @@ class LoginPage {
     return cy.contains("Password field is required");
   }
 }
-
-export default LoginPage;

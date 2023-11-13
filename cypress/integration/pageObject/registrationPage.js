@@ -1,9 +1,16 @@
-class RegistrationPage {
+export default class RegistrationPage {
   constructor() {
     this.needToRegisterButton = 'form button[type="button"]';
     this.emailInput = 'form input[name="email"]';
     this.passwordInput = 'form input[name="password"]';
     this.registerButton = 'form button[type="submit"]';
+
+    this.errorMessages = {
+      emailRequired: "E-mail field is required",
+      passwordRequired: "Password field is required",
+      emailFormat: "Entered value does not match e-mail format",
+      passwordLength: "Password must be at least 8 characters long",
+    };
   }
 
   visitRegistrationPage() {
@@ -27,21 +34,7 @@ class RegistrationPage {
     cy.get(this.registerButton).click();
   }
 
-  getEmailRequiredErrorMessage() {
-    return cy.contains("E-mail field is required");
-  }
-
-  getPasswordRequiredErrorMessage() {
-    return cy.contains("Password field is required");
-  }
-
-  getEmailFormatErrorMessage() {
-    return cy.contains("Entered value does not match e-mail format");
-  }
-
-  getPasswordLengthErrorMessage() {
-    return cy.contains("Password must be at least 8 characters long");
+  getErrorMessage(messageType) {
+    return cy.contains(this.errorMessages[messageType]);
   }
 }
-
-export default RegistrationPage;

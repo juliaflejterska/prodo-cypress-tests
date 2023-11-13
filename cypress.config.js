@@ -8,6 +8,7 @@ module.exports = defineConfig({
     specPattern: "cypress/integration/tests/*.js",
     env: {
       baseURL: "https://prodo-tracker.netlify.app",
+      quoteApiURL: "https://type.fit/api/quotes",
     },
   },
 });

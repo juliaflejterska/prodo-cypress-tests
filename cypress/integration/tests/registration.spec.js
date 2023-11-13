@@ -1,8 +1,9 @@
-import RegistrationPage from "../pages/registrationPage";
-const registrationPage = new RegistrationPage();
+import RegistrationPage from "../pageObject/registrationPage";
 const registrationData = require("../../fixtures/registrationData.json");
 
 describe("Registration tests", () => {
+  const registrationPage = new RegistrationPage();
+
   beforeEach(() => {
     registrationPage.visitRegistrationPage();
   });
@@ -23,20 +24,20 @@ describe("Registration tests", () => {
     );
   });
 
-  it("Fails to register with a blank email and password, proper error messages should be displayed", () => {
+  it("Fails to register with empty email and password, proper error messages should be displayed", () => {
     registrationPage.register("", "");
-    registrationPage.getEmailRequiredErrorMessage().should("exist");
-    registrationPage.getPasswordRequiredErrorMessage().should("exist");
+    registrationPage.getErrorMessage("emailRequired").should("exist");
+    registrationPage.getErrorMessage("passwordRequired").should("exist");
   });
 
   it("Fails to register with an empty email, proper error message should be displayed", () => {
     registrationPage.register("", invalidUser.password);
-    registrationPage.getEmailRequiredErrorMessage().should("exist");
+    registrationPage.getErrorMessage("emailRequired").should("exist");
   });
 
   it("Fails to register with an empty password, proper error message should be displayed", () => {
     registrationPage.register(invalidUser.email, "");
-    registrationPage.getPasswordRequiredErrorMessage().should("exist");
+    registrationPage.getErrorMessage("passwordRequired").should("exist");
   });
 
   it("Fails to register with an invalid email format, proper error message should be displayed", () => {
@@ -44,7 +45,7 @@ describe("Registration tests", () => {
       invalidEmailUser.email,
       invalidEmailUser.password
     );
-    registrationPage.getEmailFormatErrorMessage().should("exist");
+    registrationPage.getErrorMessage("emailFormat").should("exist");
   });
 
   it("Fails to register with a password that is too short, proper error message should be displayed", () => {
@@ -52,6 +53,6 @@ describe("Registration tests", () => {
       shortPasswordUser.email,
       shortPasswordUser.password
     );
-    registrationPage.getPasswordLengthErrorMessage().should("exist");
+    registrationPage.getErrorMessage("passwordLength").should("exist");
   });
 });
