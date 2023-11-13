@@ -1,7 +1,7 @@
 import RegistrationPage from "../pageObject/registrationPage";
 const registrationData = require("../../fixtures/registrationData.json");
 
-describe("Registration tests", () => {
+describe("Registration - Functionality", () => {
   const registrationPage = new RegistrationPage();
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import LoginPage from "../pageObject/loginPage";
 const loginData = require("../../fixtures/loginData.json");
 
-describe("Login tests", () => {
+describe("Login - Functionality", () => {
   const loginPage = new LoginPage();
   beforeEach(() => {
     loginPage.visitLoginPage();
