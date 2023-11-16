@@ -1,0 +1,34 @@
+{
+  "validIncome": {
+    "title": "valid income",
+    "amount": 20
+  },
+  "validExpense": {
+    "title": "valid expense",
+    "amount": -20
+  },
+  "validDecimalTransaction": {
+    "title": "valid decimal transaction",
+    "amount": 20.75
+  },
+  "invalidTransaction": {
+    "title": "",
+    "amount": ""
+  },
+  "invalidTransactionTitle": {
+    "title": "",
+    "amount": 20
+  },
+  "invalidTransactionAmount": {
+    "title": "ivalid amount",
+    "amount": ""
+  },
+  "invalidTransactionZeroAmount": {
+    "title": "0 amount",
+    "amount": 0
+  },
+  "invalidAmount": {
+    "amount": "123xyz!@#",
+    "amountField": "123"
+  }
+}

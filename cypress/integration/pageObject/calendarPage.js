@@ -2,9 +2,11 @@ export default class CalendarPage {
   constructor() {
     // Form Elements
     this.titleInput = 'form input[type="text"]';
+    this.addEventButton = 'form button[type="button"]:contains("ADD")';
+
+    // Datepickers
     this.datetimePickers = ".react-datetime-picker input[name='datetime']";
     this.clearButtons = ".react-datetime-picker__clear-button";
-    this.addEventButton = 'form button[type="button"]:contains("ADD")';
 
     // Calendar Elements
     this.monthButton = '.rbc-btn-group button:contains("Month")';

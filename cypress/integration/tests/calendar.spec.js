@@ -12,6 +12,7 @@ describe("Calendar - Functionality", () => {
   const {
     validOneDayEvent,
     validMultipleDaysEvent,
+    invalidEvent,
     invalidTitleEvent,
     invalidDateEvent,
     invalidDatesEvent,
@@ -29,6 +30,15 @@ describe("Calendar - Functionality", () => {
     calendarPage.fillEventDetails(validMultipleDaysEvent);
     calendarPage.addEvent();
     calendarPage.checkEventInCalendar(validMultipleDaysEvent.title);
+  });
+
+  it("Fails to create an event without a title and dates, proper alert should be displayed", () => {
+    calendarPage.fillEventDetails(invalidEvent);
+    calendarPage.addEvent();
+    cy.validateModal(
+      "Title and dates cannot be empty. Please enter valid values."
+    );
+    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Fails to create an event without a title, proper alert should be displayed", () => {

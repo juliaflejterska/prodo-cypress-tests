@@ -14,18 +14,25 @@ const today = new Date().toISOString().split("T")[0];
 
 const calendarData = {
   validOneDayEvent: {
-    title: "oneDayEvent",
+    title: "oneDay",
     date1: today,
     time1: "16:00",
     date2: today,
     time2: "17:30",
   },
   validMultipleDaysEvent: {
-    title: "multipleDayEvent",
+    title: "multipleDay",
     date1: today,
     time1: "12:00",
     date2: getFutureDate(2),
     time2: "23:30",
+  },
+  invalidEvent: {
+    title: "",
+    date1: "",
+    time1: "",
+    date2: "",
+    time2: "",
   },
   invalidTitleEvent: {
     title: "",
