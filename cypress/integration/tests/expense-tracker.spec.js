@@ -98,57 +98,49 @@ describe("Expenses tracker - Functionality", () => {
   });
 
   it("Allows only numeric values in the amount field", () => {
-    const numericAmount = invalidAmount.amount;
-
-    cy.get('form input[inputmode="numeric"][type="text"]')
-      .type(numericAmount, { force: true })
-      .should("have.value", invalidAmount.amountField);
+    expensesPage.checkAmountIsNumeric(
+      invalidAmount.amount,
+      invalidAmount.expectedAmount
+    );
   });
 
   it("Sorts transactions alphabetically", () => {
+    // can directly check the sorting of transactions because the app's initial state already includes sample transactions
     expensesPage.sortAlphabetically();
-
     expensesPage.getTransactionTexts().then((transactionTexts) => {
       const sortedTexts = [...transactionTexts].map((el) =>
         el.innerText.toLowerCase()
       );
       const expectedOrder = sortedTexts.slice().sort();
-
       expect(sortedTexts).to.deep.equal(expectedOrder);
     });
   });
 
   it("Sorts transactions in ascending order", () => {
     expensesPage.sortAscending();
-
     expensesPage.getTransactionValues().then((transactionValues) => {
       const sortedValues = [...transactionValues].map((el) =>
         Number(el.innerText.replace(/[^-\d.]/g, ""))
       );
       const expectedOrder = [...sortedValues].sort((a, b) => a - b);
-
       expect(sortedValues).to.deep.equal(expectedOrder);
     });
   });
 
   it("Sorts transactions in descending order", () => {
     expensesPage.sortDescending();
-
     expensesPage.getTransactionValues().then((transactionValues) => {
       const sortedValues = [...transactionValues].map((el) =>
         Number(el.innerText.replace(/[^-\d.]/g, ""))
       );
       const expectedOrder = [...sortedValues].sort((a, b) => b - a);
-
       expect(sortedValues).to.deep.equal(expectedOrder);
     });
   });
 
   it("Removes the added transaction", () => {
     expensesPage.addTransaction(validIncome.title, validIncome.amount);
-
     expensesPage.removeTransaction(validIncome.title);
-
     expensesPage.checkTransactionIsDeleted(validIncome.title);
   });
 });

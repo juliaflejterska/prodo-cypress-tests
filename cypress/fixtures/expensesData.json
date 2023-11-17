@@ -29,6 +29,6 @@
   },
   "invalidAmount": {
     "amount": "123xyz!@#",
-    "amountField": "123"
+    "expectedAmount": "123"
   }
 }

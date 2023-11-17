@@ -45,6 +45,17 @@ export default class ExpensesPage {
       .and("eq", expectedColor);
   }
 
+  getNumericValue(label) {
+    return cy
+      .contains("span", label)
+      .next("span")
+      .invoke("text")
+      .then((text) => {
+        const numericValue = Number(text.replace(/[^-\d.]/g, ""));
+        return isNaN(numericValue) ? 0 : numericValue;
+      });
+  }
+
   getInitialValues() {
     const labels = ["BALANCE", "INCOME", "EXPENSE"];
     let initialValues = {};
@@ -84,15 +95,10 @@ export default class ExpensesPage {
     });
   }
 
-  getNumericValue(label) {
-    return cy
-      .contains("span", label)
-      .next("span")
-      .invoke("text")
-      .then((text) => {
-        const numericValue = Number(text.replace(/[^-\d.]/g, ""));
-        return isNaN(numericValue) ? 0 : numericValue;
-      });
+  checkAmountIsNumeric(amount, expectedAmount) {
+    cy.get(this.amountInput)
+      .type(amount, { force: true })
+      .should("have.value", expectedAmount);
   }
 
   sortAlphabetically() {
