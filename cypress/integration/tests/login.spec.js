@@ -31,7 +31,7 @@ describe("Login - Functionality", () => {
 
   it("Fails to log in with with a blank email and password, proper error messages should be displayed", () => {
     loginPage.login("", "");
-    loginPage.getEmailRequiredErrorMessage();
-    loginPage.getPasswordRequiredErrorMessage();
+    loginPage.getErrorMessage("emailRequired").should("exist");
+    loginPage.getErrorMessage("passwordRequired").should("exist");
   });
 });

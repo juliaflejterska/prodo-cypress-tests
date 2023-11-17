@@ -29,8 +29,6 @@ export default class CalendarPage {
     this.modalInput = ".modal-body input[type='text']";
     this.modalSaveEventButton =
       '.modal-footer button[type="button"]:contains("Save")';
-    this.modalCloseButton =
-      '.modal-footer button[type="button"]:contains("Close")';
     this.modalConfirmDeletionButton =
       '.modal-footer button[type="button"]:contains("Confirm")';
     this.modalCancelDeletionButton =
@@ -154,10 +152,6 @@ export default class CalendarPage {
   }
 
   // Modal buttons
-
-  closeModal() {
-    cy.get(this.modalCloseButton).click();
-  }
 
   saveModal() {
     cy.get(this.modalSaveEventButton).click();

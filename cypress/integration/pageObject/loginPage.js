@@ -3,6 +3,11 @@ export default class LoginPage {
     this.emailInput = 'form input[name="email"]';
     this.passwordInput = 'form input[name="password"]';
     this.loginButton = 'form button[type="submit"]';
+
+    this.errorMessages = {
+      emailRequired: "E-mail field is required",
+      passwordRequired: "Password field is required",
+    };
   }
 
   visitLoginPage() {
@@ -24,11 +29,7 @@ export default class LoginPage {
     cy.get(this.loginButton).click();
   }
 
-  getEmailRequiredErrorMessage() {
-    return cy.contains("E-mail field is required");
-  }
-
-  getPasswordRequiredErrorMessage() {
-    return cy.contains("Password field is required");
+  getErrorMessage(messageType) {
+    return cy.contains(this.errorMessages[messageType]);
   }
 }

@@ -38,28 +38,24 @@ describe("Calendar - Functionality", () => {
     cy.validateModal(
       "Title and dates cannot be empty. Please enter valid values."
     );
-    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Fails to create an event without a title, proper alert should be displayed", () => {
     calendarPage.fillEventDetails(invalidTitleEvent);
     calendarPage.addEvent();
     cy.validateModal("Title cannot be empty. Please enter a valid title.");
-    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Fails to create an event with an end date before a start date, proper alert should be displayed", () => {
     calendarPage.fillEventDetails(invalidDateEvent);
     calendarPage.addEvent();
     cy.validateModal("The start date must be before the end date.");
-    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Fails to create an event without dates, proper alert should be displayed", () => {
     calendarPage.fillEventDetails(invalidDatesEvent);
     calendarPage.addEvent();
     cy.validateModal("Dates cannot be empty. Please enter valid dates.");
-    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Creates an event with Drag and Drop method", () => {
@@ -74,7 +70,6 @@ describe("Calendar - Functionality", () => {
     calendarPage.addEventByDragging(title);
     calendarPage.saveModal();
     cy.validateModal("Title cannot be empty. Please enter a valid title.");
-    cy.get(calendarPage.modalCloseButton).click();
   });
 
   it("Deletes an event with modal confirmation", () => {
