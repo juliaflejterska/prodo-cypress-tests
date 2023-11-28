@@ -6,7 +6,7 @@ describe("Expenses tracker - Functionality", () => {
 
   beforeEach(() => {
     cy.loginWithValidCredentials();
-    cy.get('a[href="/expenses"]').click();
+    expensesPage.navigate();
   });
 
   const {

@@ -1,35 +1,38 @@
 export default class ExpensesPage {
-  constructor() {
-    this.titleInput = 'form input[type="text"][placeholder="Enter title"]';
-    this.amountInput = 'form input[inputmode="numeric"][type="text"]';
-    this.submitButton = 'form button[type="submit"]';
-    this.balanceLabel =
-      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('BALANCE')";
-    this.incomeLabel =
-      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('INCOME')";
-    this.expenseLabel =
-      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('EXPENSE')";
-    this.transactionTexts = ".d-flex.flex-column > div > div:last-child > span";
-    this.transactionValues =
-      ".d-flex.flex-column > div > div:first-child > span";
+  elements = {
+    titleInput: 'form input[type="text"][placeholder="Enter title"]',
+    amountInput: 'form input[inputmode="numeric"][type="text"]',
+    submitButton: 'form button[type="submit"]',
+    balanceLabel:
+      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('BALANCE')",
+    incomeLabel:
+      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('INCOME')",
+    expenseLabel:
+      ".d-flex.justify-content-around.align-items-center.text-center.gap-3 span:contains('EXPENSE')",
+    transactionTexts: ".d-flex.flex-column > div > div:last-child > span",
+    transactionValues: ".d-flex.flex-column > div > div:first-child > span",
+  };
+
+  navigate() {
+    cy.get('a[href="/expenses"]').click();
   }
 
   addTransaction(title, amount) {
-    cy.get(this.titleInput).clear();
+    cy.get(this.elements.titleInput).clear();
     if (title !== "") {
-      cy.get(this.titleInput).type(title);
+      cy.get(this.elements.titleInput).type(title);
     }
 
-    cy.get(this.amountInput).clear();
+    cy.get(this.elements.amountInput).clear();
     if (amount !== "") {
-      cy.get(this.amountInput).type(amount);
+      cy.get(this.elements.amountInput).type(amount);
     }
 
-    cy.get(this.submitButton).click();
+    cy.get(this.elements.submitButton).click();
   }
 
   checkTransaction(title, amount) {
-    cy.get(this.transactionTexts).eq(0).should("contain", title);
+    cy.get(this.elements.transactionTexts).eq(0).should("contain", title);
 
     const stringAmount = amount.toString();
     const isNegative = stringAmount.startsWith("-");
@@ -38,7 +41,7 @@ export default class ExpensesPage {
       : "+$" + stringAmount;
     const expectedColor = isNegative ? "rgb(208, 0, 0)" : "rgb(19, 111, 99)";
 
-    cy.get(this.transactionValues)
+    cy.get(this.elements.transactionValues)
       .eq(0)
       .should("contain", displayAmount)
       .should("have.css", "color")
@@ -96,7 +99,7 @@ export default class ExpensesPage {
   }
 
   checkAmountIsNumeric(amount, expectedAmount) {
-    cy.get(this.amountInput)
+    cy.get(this.elements.amountInput)
       .type(amount, { force: true })
       .should("have.value", expectedAmount);
   }
@@ -117,15 +120,15 @@ export default class ExpensesPage {
   }
 
   getTransactionTexts() {
-    return cy.get(this.transactionTexts);
+    return cy.get(this.elements.transactionTexts);
   }
 
   getTransactionValues() {
-    return cy.get(this.transactionValues);
+    return cy.get(this.elements.transactionValues);
   }
 
   removeTransaction(title) {
-    cy.get(this.transactionTexts)
+    cy.get(this.elements.transactionTexts)
       .contains(title)
       .parent()
       .parent()
@@ -135,6 +138,6 @@ export default class ExpensesPage {
   }
 
   checkTransactionIsDeleted(title) {
-    cy.get(this.transactionTexts).eq(0).should("not.contain", title);
+    cy.get(this.elements.transactionTexts).eq(0).should("not.contain", title);
   }
 }

@@ -1,20 +1,20 @@
 export default class QuotesPage {
-  constructor() {
-    this.quote = "section p:first-of-type";
-    this.quoteAuthor = "section p:nth-of-type(2)";
-    this.changeQuoteButton = 'section button[type="button"]';
-  }
+  elements = {
+    quote: "section p:first-of-type",
+    quoteAuthor: "section p:nth-of-type(2)",
+    changeQuoteButton: 'section button[type="button"]',
+  };
 
   getQuote() {
-    return cy.get(this.quote);
+    return cy.get(this.elements.quote);
   }
 
   getQuoteAuthor() {
-    return cy.get(this.quoteAuthor);
+    return cy.get(this.elements.quoteAuthor);
   }
 
   changeQuote() {
-    return cy.get(this.changeQuoteButton).click();
+    return cy.get(this.elements.changeQuoteButton).click();
   }
 
   loadQuotesFromExternalAPI() {

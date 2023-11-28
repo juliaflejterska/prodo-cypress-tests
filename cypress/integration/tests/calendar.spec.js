@@ -6,7 +6,7 @@ describe("Calendar - Functionality", () => {
 
   beforeEach(() => {
     cy.loginWithValidCredentials();
-    cy.get('a[href="/calendar"]').click();
+    calendarPage.navigate();
   });
 
   const {
@@ -58,14 +58,14 @@ describe("Calendar - Functionality", () => {
     cy.validateModal("Dates cannot be empty. Please enter valid dates.");
   });
 
-  it("Creates an event with Drag and Drop method", () => {
+  it("Creates an event with Drag and Drop", () => {
     const title = validMouseEvent.title;
     calendarPage.addEventByDragging(title);
     calendarPage.saveModal();
     calendarPage.checkEventInCalendar(title);
   });
 
-  it("Fails to create an event with Drag and Drop method, proper alert should be displayed", () => {
+  it("Fails to create an event with Drag and Drop without a title, proper alert should be displayed", () => {
     const title = invalidMouseEvent.title;
     calendarPage.addEventByDragging(title);
     calendarPage.saveModal();

@@ -1,0 +1,10 @@
+{
+  "validGoal": {
+    "title": "valid goal",
+    "category": "self-care"
+  },
+  "invalidGoal": {
+    "title": "",
+    "category": "self-care"
+  }
+}

@@ -1,14 +1,14 @@
 export default class LoginPage {
-  constructor() {
-    this.emailInput = 'form input[name="email"]';
-    this.passwordInput = 'form input[name="password"]';
-    this.loginButton = 'form button[type="submit"]';
+  elements = {
+    emailInput: 'form input[name="email"]',
+    passwordInput: 'form input[name="password"]',
+    loginButton: 'form button[type="submit"]',
+  };
 
-    this.errorMessages = {
-      emailRequired: "E-mail field is required",
-      passwordRequired: "Password field is required",
-    };
-  }
+  errorMessages = {
+    emailRequired: "E-mail field is required",
+    passwordRequired: "Password field is required",
+  };
 
   visitLoginPage() {
     cy.visit(Cypress.env("baseURL") + "/login");
@@ -16,17 +16,18 @@ export default class LoginPage {
 
   login(email, password) {
     if (email !== "") {
-      cy.get(this.emailInput).type(email);
+      cy.get(this.elements.emailInput).type(email);
     } else {
-      cy.get(this.emailInput).clear();
+      cy.get(this.elements.emailInput).clear();
     }
 
     if (password !== "") {
-      cy.get(this.passwordInput).type(password);
+      cy.get(this.elements.passwordInput).type(password);
     } else {
-      cy.get(this.passwordInput).clear();
+      cy.get(this.elements.passwordInput).clear();
     }
-    cy.get(this.loginButton).click();
+
+    cy.get(this.elements.loginButton).click();
   }
 
   getErrorMessage(messageType) {
