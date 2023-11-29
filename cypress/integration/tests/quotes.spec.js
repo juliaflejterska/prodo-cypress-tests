@@ -9,8 +9,6 @@ describe("Quotes - Functionality", () => {
 
   context("Displaying quotes", () => {
     it("Initially displays the first quote and changes the quote on button click", () => {
-      cy.wait(2500);
-
       quotesPage
         .getQuote()
         .should("be.visible")
@@ -27,7 +25,6 @@ describe("Quotes - Functionality", () => {
         .invoke("text")
         .then((quote) => {
           quotesPage.changeQuote();
-          cy.wait(2500);
           quotesPage.getQuote().invoke("text").should("not.equal", quote);
         });
     });

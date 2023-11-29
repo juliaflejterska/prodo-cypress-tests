@@ -18,22 +18,22 @@ describe("Login - Functionality", () => {
     });
   });
 
-  context("Failing to log in", () => {
-    it("Fails to log in with a not registered email, proper alert should be displayed", () => {
+  context("Login errors validation", () => {
+    it("Displays proper alert for not registered email", () => {
       loginPage.login(invalidUser.email, invalidUser.password);
       cy.validateAlert(
         "Login failed: Please check your credentials and try again."
       );
     });
 
-    it("Fails to log in with incorrect password, proper alert should be displayed", () => {
+    it("Displays proper alert for incorrect password", () => {
       loginPage.login(validUser.email, invalidUser.password);
       cy.validateAlert(
         "Login failed: Please check your credentials and try again."
       );
     });
 
-    it("Fails to log in with with a blank email and password, proper error messages should be displayed", () => {
+    it("Displays proper error messages for blank email and password", () => {
       loginPage.login("", "");
       loginPage.getErrorMessage("emailRequired").should("exist");
       loginPage.getErrorMessage("passwordRequired").should("exist");

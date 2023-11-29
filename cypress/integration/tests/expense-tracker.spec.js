@@ -61,8 +61,8 @@ describe("Expenses tracker - Functionality", () => {
     });
   });
 
-  context("Failing to create transactions", () => {
-    it("Fails to create a transaction without a title and an amount, proper alert should be displayed", () => {
+  context("Creating transactions errors validation", () => {
+    it("Displays proper alert for a transaction without a title and amount", () => {
       expensesPage.addTransaction(
         invalidTransaction.title,
         invalidTransaction.amount
@@ -72,7 +72,7 @@ describe("Expenses tracker - Functionality", () => {
       );
     });
 
-    it("Fails to create a transaction without a title, proper alert should be displayed", () => {
+    it("Displays proper alert for a transaction without a title", () => {
       expensesPage.addTransaction(
         invalidTransactionTitle.title,
         invalidTransactionTitle.amount
@@ -80,7 +80,7 @@ describe("Expenses tracker - Functionality", () => {
       cy.validateModal("Title cannot be empty. Please enter a valid title.");
     });
 
-    it("Fails to create a transaction without an amount, proper alert should be displayed", () => {
+    it("Displays proper alert for a transaction without an amount", () => {
       expensesPage.addTransaction(
         invalidTransactionAmount.title,
         invalidTransactionAmount.amount
@@ -90,7 +90,7 @@ describe("Expenses tracker - Functionality", () => {
       );
     });
 
-    it("Fails to create a transaction with 0 amount, proper alert should be displayed", () => {
+    it("Displays proper alert for a transaction with 0 amount", () => {
       expensesPage.addTransaction(
         invalidTransactionZeroAmount.title,
         invalidTransactionZeroAmount.amount

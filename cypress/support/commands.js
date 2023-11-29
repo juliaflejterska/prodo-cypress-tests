@@ -1,12 +1,12 @@
 Cypress.Commands.add("validateAlert", (expectedText) => {
-  cy.wait(5000);
+  cy.wait(2500);
   cy.on("window:alert", (alertText) => {
     expect(alertText).to.contains(expectedText);
   });
 });
 
 Cypress.Commands.add("validateModal", (expectedText) => {
-  cy.wait(5000);
+  cy.wait(2500);
   cy.get(".modal").should("be.visible");
   cy.get(".modal-body").should("contain", expectedText);
 });

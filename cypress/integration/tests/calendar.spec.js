@@ -41,8 +41,8 @@ describe("Calendar - Functionality", () => {
     });
   });
 
-  context("Failing to create events", () => {
-    it("Fails to create an event without a title and dates, proper alert should be displayed", () => {
+  context("Creating events errors validation", () => {
+    it("Displays proper alert for creating an event without a title and dates", () => {
       calendarPage.fillEventDetails(invalidEvent);
       calendarPage.addEvent();
       cy.validateModal(
@@ -50,25 +50,25 @@ describe("Calendar - Functionality", () => {
       );
     });
 
-    it("Fails to create an event without a title, proper alert should be displayed", () => {
+    it("Displays proper alert for creating an event without a title", () => {
       calendarPage.fillEventDetails(invalidTitleEvent);
       calendarPage.addEvent();
       cy.validateModal("Title cannot be empty. Please enter a valid title.");
     });
 
-    it("Fails to create an event with an end date before a start date, proper alert should be displayed", () => {
+    it("Displays proper alert for creating an event with an end date before a start date", () => {
       calendarPage.fillEventDetails(invalidDateEvent);
       calendarPage.addEvent();
       cy.validateModal("The start date must be before the end date.");
     });
 
-    it("Fails to create an event without dates, proper alert should be displayed", () => {
+    it("Displays proper alert for creating an event without dates", () => {
       calendarPage.fillEventDetails(invalidDatesEvent);
       calendarPage.addEvent();
       cy.validateModal("Dates cannot be empty. Please enter valid dates.");
     });
 
-    it("Fails to create an event with Drag and Drop without a title, proper alert should be displayed", () => {
+    it("Displays proper alert for creating an event with Drag and Drop without a title", () => {
       const title = invalidMouseEvent.title;
       calendarPage.addEventByDragging(title);
       calendarPage.saveModal();

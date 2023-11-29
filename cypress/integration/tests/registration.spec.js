@@ -19,31 +19,31 @@ describe("Registration - Functionality", () => {
     // })
   });
 
-  context("Failing to register", () => {
-    it("Fails to register with an already registered email, proper alert should be displayed", () => {
+  context("Registration errors validation", () => {
+    it("Displays proper alert for already registered email", () => {
       registrationPage.register(invalidUser.email, invalidUser.password);
       cy.validateAlert(
         "Registration failed: An account with this email address already exists."
       );
     });
 
-    it("Fails to register with empty email and password, proper error messages should be displayed", () => {
+    it("Displays proper error messages for blank email and password", () => {
       registrationPage.register("", "");
       registrationPage.getErrorMessage("emailRequired").should("exist");
       registrationPage.getErrorMessage("passwordRequired").should("exist");
     });
 
-    it("Fails to register with an empty email, proper error message should be displayed", () => {
+    it("Displays proper error message for blank email", () => {
       registrationPage.register("", invalidUser.password);
       registrationPage.getErrorMessage("emailRequired").should("exist");
     });
 
-    it("Fails to register with an empty password, proper error message should be displayed", () => {
+    it("Displays proper error message for blank password", () => {
       registrationPage.register(invalidUser.email, "");
       registrationPage.getErrorMessage("passwordRequired").should("exist");
     });
 
-    it("Fails to register with an invalid email format, proper error message should be displayed", () => {
+    it("Displays proper error message for invalid email format", () => {
       registrationPage.register(
         invalidEmailUser.email,
         invalidEmailUser.password
@@ -51,7 +51,7 @@ describe("Registration - Functionality", () => {
       registrationPage.getErrorMessage("emailFormat").should("exist");
     });
 
-    it("Fails to register with a password that is too short, proper error message should be displayed", () => {
+    it("Displays proper error message for too short password", () => {
       registrationPage.register(
         shortPasswordUser.email,
         shortPasswordUser.password

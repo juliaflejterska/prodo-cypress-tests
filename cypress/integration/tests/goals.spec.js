@@ -22,8 +22,8 @@ describe("Goals tracker - Functionality", () => {
     });
   });
 
-  context("Failing to create goals", () => {
-    it("Fails to add a goal without a title,  proper alert should be displayed", () => {
+  context("Creating goals error validation", () => {
+    it("Displays proper alert for adding a goal without a title", () => {
       goalsPage.addGoal(invalidGoal.title, invalidGoal.category);
       cy.validateModal("Title cannot be empty. Please enter a valid title.");
     });
