@@ -32,31 +32,28 @@ export default class CalendarPage {
     cy.get('a[href="/calendar"]').click();
   }
 
-  fillEventDetails(calendarData) {
-    const { title, date1, time1, date2, time2 } = calendarData;
+  fillEventDetails({ title, date1, time1, date2, time2 }) {
+    const titleInput = cy.get(this.elements.titleInput);
 
     if (title !== "") {
-      cy.get(this.elements.titleInput).type(title);
+      titleInput.type(title);
     } else {
-      cy.get(this.elements.titleInput).clear();
+      titleInput.clear();
     }
 
-    if (date1 !== "" && time1 !== "") {
-      cy.get(this.elements.datetimePickers)
-        .eq(0)
-        .clear({ force: true })
-        .type(`${date1}T${time1}`, { force: true });
-    } else {
-      cy.get(this.elements.datetimePickers).eq(0).clear({ force: true });
-    }
+    this.setDateTimePicker(0, date1, time1);
+    this.setDateTimePicker(1, date2, time2);
+  }
 
-    if (date2 !== "" && time2 !== "") {
-      cy.get(this.elements.datetimePickers)
-        .eq(1)
+  setDateTimePicker(index, date, time) {
+    const dateTimePicker = cy.get(this.elements.datetimePickers).eq(index);
+
+    if (date !== "" && time !== "") {
+      dateTimePicker
         .clear({ force: true })
-        .type(`${date2}T${time2}`, { force: true });
+        .type(`${date}T${time}`, { force: true });
     } else {
-      cy.get(this.elements.datetimePickers).eq(1).clear({ force: true });
+      dateTimePicker.clear({ force: true });
     }
   }
 
