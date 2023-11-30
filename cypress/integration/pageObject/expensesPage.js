@@ -144,7 +144,7 @@ export default class ExpensesPage {
 
   // Transaction deletion
 
-  removeTransaction(title) {
+  deleteTransaction(title) {
     cy.get(this.elements.transactionTexts)
       .contains(title)
       .parent()

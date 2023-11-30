@@ -31,7 +31,7 @@ describe("Goals tracker - Functionality", () => {
   });
 
   context("Goals deletion", () => {
-    it("Removes the added goal", () => {
+    it("deletes the added goal", () => {
       goalsPage.addGoal(validGoal.title, validGoal.category);
       goalsPage.deleteGoal(validGoal.title);
       goalsPage.checkGoalIsDeleted(validGoal.title);

@@ -143,9 +143,9 @@ describe("Expenses tracker - Functionality", () => {
   });
 
   context("Transaction deletion", () => {
-    it("Removes the added transaction", () => {
+    it("deletes the added transaction", () => {
       expensesPage.addTransaction(validIncome.title, validIncome.amount);
-      expensesPage.removeTransaction(validIncome.title);
+      expensesPage.deleteTransaction(validIncome.title);
       expensesPage.checkTransactionIsDeleted(validIncome.title);
       expensesPage.checkTransactionDeletedInLocalStorage(validIncome.title);
     });
