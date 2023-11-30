@@ -18,8 +18,15 @@ describe("Login - Functionality", () => {
           "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
           validUser.key,
       }).as("loginPost");
+
       loginPage.login(validUser.email, validUser.password);
-      cy.wait("@loginPost").its("response.statusCode").should("eq", 200);
+
+      cy.wait("@loginPost").then((interception) => {
+        const response = interception.response;
+        expect(response.statusCode).to.equal(200);
+        expect(response.body.email).to.equal(validUser.email);
+      });
+
       cy.url().should("contain", Cypress.env("baseURL"));
       cy.get('button[type="button"]').contains("LOG OUT").should("exist");
     });

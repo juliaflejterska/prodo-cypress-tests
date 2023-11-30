@@ -13,16 +13,23 @@ describe("Registration - Functionality", () => {
 
   context("Registration", () => {
     // it("Successfully registers a user with valid data and logs them in as a registered user", () => {
-    // cy.intercept({
-    //   method: "POST",
-    //   url:
-    //     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
-    //     validUser.key,
-    // }).as("registrationPost");
-    // registrationPage.register(validUser.email, validUser.password);
-    // cy.wait("@registrationPost").its("response.statusCode").should("eq", 200);
-    // cy.url().should("contain", Cypress.env("baseURL"));
-    // cy.get('button[type="button"]').contains("LOG OUT").should("exist");
+    //   cy.intercept({
+    //     method: "POST",
+    //     url:
+    //       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
+    //       validUser.key,
+    //   }).as("registrationPost");
+    //
+    //   registrationPage.register(validUser.email, validUser.password);
+    //
+    //   cy.wait("@registrationPost").then((interception) => {
+    //     const response = interception.response;
+    //     expect(response.statusCode).to.equal(200);
+    //     expect(response.body.email).to.equal(validUser.email);
+    //   });
+    //
+    //   cy.url().should("contain", Cypress.env("baseURL"));
+    //   cy.get('button[type="button"]').contains("LOG OUT").should("exist");
     // });
   });
 
