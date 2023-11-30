@@ -30,6 +30,7 @@ describe("Expenses tracker - Functionality", () => {
           validIncome.amount
         );
       });
+      expensesPage.checkTransactionInLocalStorage(validIncome.title);
     });
 
     it("Creates an expense and checks balance", () => {
@@ -41,6 +42,7 @@ describe("Expenses tracker - Functionality", () => {
           validExpense.amount
         );
       });
+      expensesPage.checkTransactionInLocalStorage(validExpense.title);
     });
 
     it("Creates a transaction with decimal amount and checks balance", () => {
@@ -58,6 +60,9 @@ describe("Expenses tracker - Functionality", () => {
           validDecimalTransaction.amount
         );
       });
+      expensesPage.checkTransactionInLocalStorage(
+        validDecimalTransaction.title
+      );
     });
   });
 
@@ -142,6 +147,7 @@ describe("Expenses tracker - Functionality", () => {
       expensesPage.addTransaction(validIncome.title, validIncome.amount);
       expensesPage.removeTransaction(validIncome.title);
       expensesPage.checkTransactionIsDeleted(validIncome.title);
+      expensesPage.checkTransactionDeletedInLocalStorage(validIncome.title);
     });
   });
 

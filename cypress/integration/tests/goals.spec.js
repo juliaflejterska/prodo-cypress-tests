@@ -19,6 +19,7 @@ describe("Goals tracker - Functionality", () => {
       goalsPage.getCategorySelect().click();
       goalsPage.getCategorySelect().contains(validGoal.category).click();
       goalsPage.checkGoal(validGoal.title);
+      goalsPage.checkGoalInLocalStorage(validGoal.title);
     });
   });
 
@@ -32,8 +33,9 @@ describe("Goals tracker - Functionality", () => {
   context("Goals deletion", () => {
     it("Removes the added goal", () => {
       goalsPage.addGoal(validGoal.title, validGoal.category);
-      goalsPage.removeGoal(validGoal.title);
+      goalsPage.deleteGoal(validGoal.title);
       goalsPage.checkGoalIsDeleted(validGoal.title);
+      goalsPage.checkGoalDeletedInLocalStorage(validGoal.title);
     });
   });
 });

@@ -17,6 +17,8 @@ export default class ExpensesPage {
     cy.get('a[href="/expenses"]').click();
   }
 
+  // Creating transactions
+
   addTransaction(title, amount) {
     cy.get(this.elements.titleInput).clear();
     if (title !== "") {
@@ -46,6 +48,17 @@ export default class ExpensesPage {
       .should("contain", displayAmount)
       .should("have.css", "color")
       .and("eq", expectedColor);
+  }
+
+  checkTransactionInLocalStorage(transactionTitle) {
+    cy.window().then((win) => {
+      const storedTransactions = win.localStorage.getItem("transactions");
+      const parsedTransactions = JSON.parse(storedTransactions);
+      const isTransactionInLocalStorage = parsedTransactions.some(
+        (transaction) => transaction.text === transactionTitle
+      );
+      expect(isTransactionInLocalStorage).to.be.true;
+    });
   }
 
   getNumericValue(label) {
@@ -104,6 +117,8 @@ export default class ExpensesPage {
       .should("have.value", expectedAmount);
   }
 
+  // Sorting transactions
+
   sortAlphabetically() {
     cy.contains("button", "SORT ALPH").click();
     cy.wait(1000);
@@ -127,6 +142,8 @@ export default class ExpensesPage {
     return cy.get(this.elements.transactionValues);
   }
 
+  // Transaction deletion
+
   removeTransaction(title) {
     cy.get(this.elements.transactionTexts)
       .contains(title)
@@ -139,5 +156,16 @@ export default class ExpensesPage {
 
   checkTransactionIsDeleted(title) {
     cy.get(this.elements.transactionTexts).eq(0).should("not.contain", title);
+  }
+
+  checkTransactionDeletedInLocalStorage(transactionTitle) {
+    cy.window().then((win) => {
+      const storedTransactions = win.localStorage.getItem("transactions");
+      const parsedTransactions = JSON.parse(storedTransactions);
+      const isTransactionDeletedInLocalStorage = !parsedTransactions.some(
+        (transaction) => transaction.text === transactionTitle
+      );
+      expect(isTransactionDeletedInLocalStorage).to.be.true;
+    });
   }
 }

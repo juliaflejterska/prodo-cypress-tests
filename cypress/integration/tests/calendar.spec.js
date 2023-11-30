@@ -25,12 +25,14 @@ describe("Calendar - Functionality", () => {
       calendarPage.fillEventDetails(validOneDayEvent);
       calendarPage.addEvent();
       calendarPage.checkEventInCalendar(validOneDayEvent.title);
+      calendarPage.checkEventInLocalStorage(validOneDayEvent.title);
     });
 
     it("Creates a multi-day event", () => {
       calendarPage.fillEventDetails(validMultipleDaysEvent);
       calendarPage.addEvent();
       calendarPage.checkEventInCalendar(validMultipleDaysEvent.title);
+      calendarPage.checkEventInLocalStorage(validMultipleDaysEvent.title);
     });
 
     it("Creates an event with Drag and Drop", () => {
@@ -38,6 +40,7 @@ describe("Calendar - Functionality", () => {
       calendarPage.addEventByDragging(title);
       calendarPage.saveModal();
       calendarPage.checkEventInCalendar(title);
+      calendarPage.checkEventInLocalStorage(title);
     });
   });
 
@@ -77,13 +80,14 @@ describe("Calendar - Functionality", () => {
   });
 
   context("Event deletion", () => {
-    it("Deletes an event with modal confirmation", () => {
+    it("Deletes an event", () => {
       const title = validMouseEvent.title;
       calendarPage.addEventByDragging(title);
       calendarPage.saveModal();
       calendarPage.deleteEvent(title);
       calendarPage.confirmModal();
       calendarPage.checkEventIsDeletedInCalendar(title);
+      calendarPage.checkEventDeletedFromLocalStorage(title);
     });
 
     it("Fails to delete an event with modal cancelation", () => {

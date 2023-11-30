@@ -32,6 +32,8 @@ export default class CalendarPage {
     cy.get('a[href="/calendar"]').click();
   }
 
+  // Creating events
+
   fillEventDetails({ title, date1, time1, date2, time2 }) {
     const titleInput = cy.get(this.elements.titleInput);
 
@@ -61,27 +63,6 @@ export default class CalendarPage {
     cy.get(this.elements.addEventButton).click();
   }
 
-  checkEventInCalendar(eventTitle) {
-    cy.get(this.elements.eventContent)
-      .scrollIntoView()
-      .contains(eventTitle)
-      .should("be.visible");
-  }
-
-  checkEventIsDeletedInCalendar(eventTitle) {
-    cy.get(this.elements.monthView).contains(eventTitle).should("not.exist");
-  }
-
-  clearDateTimePickers() {
-    cy.get(this.elements.clearButtons).each(($clearButton) => {
-      cy.wrap($clearButton).click();
-    });
-
-    cy.get(this.elements.inputGroupInputs).each(($input) => {
-      cy.wrap($input).should("have.value", "");
-    });
-  }
-
   addEventByDragging(title) {
     cy.get(this.elements.dateCellButtons)
       .eq(6)
@@ -96,8 +77,55 @@ export default class CalendarPage {
     }
   }
 
+  checkEventInCalendar(eventTitle) {
+    cy.get(this.elements.eventContent)
+      .scrollIntoView()
+      .contains(eventTitle)
+      .should("be.visible");
+  }
+
+  checkEventInLocalStorage(eventTitle) {
+    cy.window().then((win) => {
+      const storedEvents = win.localStorage.getItem("events");
+      const parsedEvents = JSON.parse(storedEvents);
+      const isEventInLocalStorage = parsedEvents.some(
+        (event) => event.title === eventTitle
+      );
+      expect(isEventInLocalStorage).to.be.true;
+    });
+  }
+
+  // Event deletion
+
   deleteEvent(eventText) {
     cy.get(this.elements.eventContent).contains(eventText).parent().click();
+  }
+
+  checkEventIsDeletedInCalendar(eventTitle) {
+    cy.get(this.elements.monthView).contains(eventTitle).should("not.exist");
+  }
+
+  checkEventDeletedFromLocalStorage(eventTitle) {
+    cy.window().then((win) => {
+      const storedEvents = win.localStorage.getItem("events");
+      const parsedEvents = JSON.parse(storedEvents);
+      const isEventDeletedFromLocalStorage = !parsedEvents.some(
+        (event) => event.title === eventTitle
+      );
+      expect(isEventDeletedFromLocalStorage).to.be.true;
+    });
+  }
+
+  // Other tests
+
+  clearDateTimePickers() {
+    cy.get(this.elements.clearButtons).each(($clearButton) => {
+      cy.wrap($clearButton).click();
+    });
+
+    cy.get(this.elements.inputGroupInputs).each(($input) => {
+      cy.wrap($input).should("have.value", "");
+    });
   }
 
   getFormattedDate(date) {
@@ -140,6 +168,8 @@ export default class CalendarPage {
     cy.get(this.elements.agendaButton).click();
     cy.get(this.elements.agendaView).should("be.visible");
   }
+
+  // Modals
 
   saveModal() {
     cy.get(this.elements.modalSaveEventButton).click();

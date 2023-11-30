@@ -11,6 +11,8 @@ export default class GoalsPage {
     cy.get('a[href="/goals"]').click();
   }
 
+  // Creating goals
+
   addGoal(title, category) {
     cy.get(this.elements.titleInput).clear();
     if (title !== "") {
@@ -27,11 +29,24 @@ export default class GoalsPage {
     cy.get(this.elements.goalsText).eq(0).should("contain", title);
   }
 
+  checkGoalInLocalStorage(goalTitle) {
+    cy.window().then((win) => {
+      const storedGoals = win.localStorage.getItem("goals");
+      const parsedGoals = JSON.parse(storedGoals);
+      const isGoalInLocalStorage = parsedGoals.some(
+        (goal) => goal.text === goalTitle
+      );
+      expect(isGoalInLocalStorage).to.be.true;
+    });
+  }
+
   getCategorySelect() {
     return cy.get(this.elements.categorySelect);
   }
 
-  removeGoal(title) {
+  // Goals deletion
+
+  deleteGoal(title) {
     cy.get(this.elements.goalsText)
       .contains(title)
       .parent()
@@ -42,5 +57,16 @@ export default class GoalsPage {
 
   checkGoalIsDeleted(title) {
     cy.get(this.elements.goalsText).eq(0).should("not.contain", title);
+  }
+
+  checkGoalDeletedInLocalStorage(goalTitle) {
+    cy.window().then((win) => {
+      const storedGoals = win.localStorage.getItem("goals");
+      const parsedGoals = JSON.parse(storedGoals);
+      const isGoalDeletedInLocalStorage = !parsedGoals.some(
+        (goal) => goal.text === goalTitle
+      );
+      expect(isGoalDeletedInLocalStorage).to.be.true;
+    });
   }
 }
