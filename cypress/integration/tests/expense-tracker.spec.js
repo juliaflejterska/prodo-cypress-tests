@@ -143,7 +143,7 @@ describe("Expenses tracker - Functionality", () => {
   });
 
   context("Transaction deletion", () => {
-    it("deletes the added transaction", () => {
+    it("Deletes the added transaction", () => {
       expensesPage.addTransaction(validIncome.title, validIncome.amount);
       expensesPage.deleteTransaction(validIncome.title);
       expensesPage.checkTransactionIsDeleted(validIncome.title);
