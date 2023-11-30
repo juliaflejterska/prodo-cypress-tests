@@ -12,7 +12,14 @@ describe("Login - Functionality", () => {
 
   context("Logging in", () => {
     it("Successfully logs in user with valid data", () => {
+      cy.intercept({
+        method: "POST",
+        url:
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
+          validUser.key,
+      }).as("loginPost");
       loginPage.login(validUser.email, validUser.password);
+      cy.wait("@loginPost").its("response.statusCode").should("eq", 200);
       cy.url().should("contain", Cypress.env("baseURL"));
       cy.get('button[type="button"]').contains("LOG OUT").should("exist");
     });

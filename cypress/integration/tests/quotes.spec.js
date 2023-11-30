@@ -9,30 +9,20 @@ describe("Quotes - Functionality", () => {
 
   context("Displaying quotes", () => {
     it("Initially displays the first quote and changes the quote on button click", () => {
-      quotesPage
-        .getQuote()
-        .should("be.visible")
-        .invoke("text")
-        .should("match", /"(.*)"/);
-      quotesPage
-        .getQuoteAuthor()
-        .should("be.visible")
-        .invoke("text")
-        .should("not.be.empty");
+      cy.intercept("GET", Cypress.env("quoteApiURL")).as("quoteAPI");
+      cy.wait("@quoteAPI").its("response.statusCode").should("eq", 200);
+
+      quotesPage.assertQuoteVisibilityAndContent();
 
       quotesPage
         .getQuote()
         .invoke("text")
         .then((quote) => {
+          cy.intercept("GET", Cypress.env("quoteApiURL")).as("quoteAPI");
           quotesPage.changeQuote();
-          quotesPage.getQuote().invoke("text").should("not.equal", quote);
+          cy.wait("@quoteAPI").its("response.statusCode").should("eq", 200);
+          quotesPage.assertChangedQuoteVisibilityAndContent(quote);
         });
-    });
-
-    it("Dynamically loads quotes from an external quote API", () => {
-      quotesPage.loadQuotesFromExternalAPI();
-      quotesPage.changeQuote();
-      cy.wait("@quoteAPI").its("response.statusCode").should("eq", 200);
     });
   });
 });

@@ -1,7 +1,8 @@
 {
   "validUser": {
     "email": "test@test.com",
-    "password": "12345678"
+    "password": "12345678",
+    "key": "AIzaSyAyQE1d89NcjxsGakghI1HdErfhDU499aQ"
   },
   "invalidUser": {
     "email": "notregistered@test.com",

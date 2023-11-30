@@ -17,7 +17,18 @@ export default class QuotesPage {
     return cy.get(this.elements.changeQuoteButton).click();
   }
 
-  loadQuotesFromExternalAPI() {
-    return cy.intercept("GET", Cypress.env("quoteApiURL")).as("quoteAPI");
+  assertQuoteVisibilityAndContent() {
+    this.getQuote()
+      .should("be.visible")
+      .invoke("text")
+      .should("match", /"(.*)"/);
+    this.getQuoteAuthor()
+      .should("be.visible")
+      .invoke("text")
+      .should("not.be.empty");
+  }
+
+  assertChangedQuoteVisibilityAndContent(quote) {
+    this.getQuote().invoke("text").should("not.equal", quote);
   }
 }
