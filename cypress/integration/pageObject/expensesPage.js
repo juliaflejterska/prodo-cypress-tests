@@ -119,6 +119,14 @@ export default class ExpensesPage {
 
   // Sorting transactions
 
+  getTransactionTexts() {
+    return cy.get(this.elements.transactionTexts);
+  }
+
+  getTransactionValues() {
+    return cy.get(this.elements.transactionValues);
+  }
+
   sortAlphabetically() {
     cy.contains("button", "SORT ALPH").click();
     cy.wait(1000);
@@ -132,14 +140,6 @@ export default class ExpensesPage {
   sortDescending() {
     cy.contains("button", "SORT DESC").click();
     cy.wait(1000);
-  }
-
-  getTransactionTexts() {
-    return cy.get(this.elements.transactionTexts);
-  }
-
-  getTransactionValues() {
-    return cy.get(this.elements.transactionValues);
   }
 
   // Transaction deletion
